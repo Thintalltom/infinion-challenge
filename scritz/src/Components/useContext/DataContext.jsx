@@ -18,11 +18,8 @@ export const FormDataProvider = ({ children }) => {
         'https://infinion-test-int-test.azurewebsites.net/api/Campaign',
         postData,
         {
-          headers: {
-            'Content-Type': 'text/plain', 
-            'Accept': 'text/plain',      
-            'Custom-Header': 'value',     
-          },
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         }
       );
       console.log('Response:', response.data);

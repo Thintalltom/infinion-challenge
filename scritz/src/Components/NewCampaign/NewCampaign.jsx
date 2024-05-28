@@ -3,12 +3,13 @@ import { useState } from "react";
 import { FaToggleOff } from "react-icons/fa6";
 import { IoToggle } from "react-icons/io5";
 import { useDataContext } from "../useContext/DataContext";
+import axios from 'axios'
 
 const NewCampaign = () => {
   const [open, setOpen] = useState(false);
   const { data, postData } = useDataContext();
   const handleToggle = () => {
-    setdailyDigest(!dailyDigest);
+    setdigestCampaign(!digestCampaign);
     console.log(dailyDigest)
   };
 
@@ -23,7 +24,7 @@ const NewCampaign = () => {
   const [digestCampaign, setdigestCampaign] = useState(false);
   const [campaignStatus, setCampaignStatus] = useState("");
 
-  const handlePostData = (e) => {
+  const handlePostData = async (e) => {
     e.preventDefault();
     const newData = {
       campaignName,
@@ -35,20 +36,35 @@ const NewCampaign = () => {
       dailyDigest,
       campaignStatus: campaignName ? "Active" : "Not active"
     };
-    console.log(newData);
-    postData(newData);
+    try {
+      const response = await axios.post(
+        'https://infinion-test-int-test.azurewebsites.net/api/Campaign',
+        newData,
+        {
+          headers: {
+            'Content-Type': 'text/json',
+            'Accept': 'text/json'
+          }
+        }
+      );
+      console.log('Response:', response.data);
+      
+      // Optionally, you can update the UI with the response data
+    } catch (error) {
+      console.error('Error posting data:', error.response ? error.response.data : error.message);
+    }
   };
 
   const handleLinked = (e) => {
     const input = e.target.value;
-    const keywordsArray = input.split(',').map(keyword => keyword.trim());
+    const keywordsArray = input.split(",").map((keyword) => keyword.trim());
     setLinkedKeywords(keywordsArray);
-    console.log(keywordsArray); // Log the array to check the values
+    console.log(keywordsArray);
   };
 
   const handleSelected = (e) => {
-    setCampaignDigest(e.target.value)
-    console.log(campaignDigest)
+    setdailyDigest(e.target.value)
+    
   }
 
   return (
@@ -56,7 +72,7 @@ const NewCampaign = () => {
       <div className="font-bold text-[#247B7B]"> Create New Campaign</div>
       <form className="mt-[20px]">
         <div>
-        <div className="hidden">
+        <div className="hidden" >
           Campaign Status: {campaignName ? "Active" : "Not Active"}
         </div>
           <label className="text-[10px] flex items-center">
@@ -69,6 +85,7 @@ const NewCampaign = () => {
             required
             placeholder="e.g the future is now"
             className="text-[10px] w-[500px] border-[1px] p-[10px]"
+            name="campaignName"
             value={campaignName}
             onChange={(e) => setCampaignName(e.target.value)}
           />
@@ -84,6 +101,7 @@ const NewCampaign = () => {
             required
             placeholder="Please add a description to your campaign"
             className="text-[10px] w-[500px] h-[100px] border-[1px] p-[10px] mt-1"
+            name="campaignDescription"
             value={campaignDescription}
             onChange={(e) => setCampaignDescription(e.target.value)}
           />
@@ -100,6 +118,7 @@ const NewCampaign = () => {
               type="date"
               required
               placeholder="e.g the future is now"
+              name="startDate"
               className="text-[10px] w-[250px] border-[1px] p-[10px]"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
@@ -116,6 +135,7 @@ const NewCampaign = () => {
               type="date"
               required
               placeholder="e.g the future is now"
+              name="endDate"
               className="text-[10px] w-[250px] border-[1px] p-[10px]"
               value={endDate}
               onChange={(e) => setEnddate(e.target.value)}
@@ -126,7 +146,7 @@ const NewCampaign = () => {
           <p className="text-[10px]">
             Want to recieve daily digest about the campaign ?{" "}
           </p>
-          <button onClick={handleToggle}>
+          <button onClick={handleToggle} name="digestCampaign">
             {digestCampaign ? (
               <FaToggleOff className="text-2xl" />
             ) : (
@@ -144,7 +164,8 @@ const NewCampaign = () => {
             required
             placeholder="Please add a description to your campaign"
             className="text-[10px] w-[500px] h-[100px] border-[1px] p-[10px] mt-1"
-            value={linkedKeywords}
+            value={linkedKeywords.join(", ")}
+            name="linkedKeywords"
             onChange={handleLinked}
           />
         </div>
@@ -155,6 +176,7 @@ const NewCampaign = () => {
         <select
           value={dailyDigest}
           onChange={handleSelected}
+          name="dailyDigest"
           className="text-[10px] w-[200px] border-[1px] p-[10px] mt-[20px]"
           required
         >
