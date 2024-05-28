@@ -5,6 +5,7 @@ import Navbar from './Components/Navbar/Navbar';
 import OverviewBoard from './Components/Overviewboard/OverviewBoard';
 import DashboardView from './Components/DashboardView/DashboardView';
 import NewCampaign from './Components/NewCampaign/NewCampaign';
+import EditCampaign from './Components/Campaigns/EditCampaign';
 function App() {
 
 
@@ -18,6 +19,7 @@ function App() {
       <Route path='/campaign' element={<Campaigns />} />
       <Route path='/overview' element={<OverviewBoard />} />
       <Route path='/new' element={<NewCampaign />} />
+      <Route path='/edit/:id' element={<EditCampaign />} />
       </Routes>
      </div>
       
