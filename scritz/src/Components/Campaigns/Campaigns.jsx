@@ -13,6 +13,8 @@ const Campaigns = () => {
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false)
   const [modalMessage, setModalMessage] = useState('')
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
   const navigate = useNavigate();
   //function to get data
   const getData = async () => {
@@ -49,6 +51,24 @@ const Campaigns = () => {
     return { activeCount, inactiveCount };
   };
 
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const handlePreviousPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   
 
   const { activeCount, inactiveCount } = countCampaigns();
@@ -131,6 +151,33 @@ const Campaigns = () => {
           {showModal && (
             <DeleteModal showModal={showModal} modalMessage={modalMessage} setShowModal={setShowModal} />
           )}
+
+
+<div className="flex justify-center items-center mt-4">
+        <button
+          className="px-4 py-2 mx-1 border rounded disabled:opacity-50"
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index}
+            className={`px-4 py-2 mx-1 border rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : ''}`}
+            onClick={() => handlePageClick(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+        <button
+          className="px-4 py-2 mx-1 border rounded disabled:opacity-50"
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
