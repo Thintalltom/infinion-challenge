@@ -8,10 +8,11 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
+
 const Campaigns = () => {
   const [data, setData] = useState([]);
   const [isEditing, setIsEditing] = useState(null)
-
+ 
   const navigate = useNavigate();
   //function to get data
   const getData = async () => {
@@ -29,6 +30,15 @@ const Campaigns = () => {
     getData();
   }, []); 
 
+  const deleteCampaign = async (campaignId) => {
+    try {
+      const response = await axios.delete(`https://infinion-test-int-test.azurewebsites.net/api/Campaign/${campaignId}`);
+      setData(data.filter((campaign) => campaign.id !== campaignId));
+      console.log('deleted')      
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
  
 
   const countCampaigns = () => {
@@ -107,9 +117,9 @@ const Campaigns = () => {
                 </td>
                 <td className="p-[10px] text-[10px] font-light items-center gap-[20px] text-sm flex ">
                
-                  <IoEyeOutline />
-                  <FaRegEdit  onClick={() => navigate(`/edit/${campaign.id}`)}/>
-                  <RiDeleteBin6Line />
+                  <IoEyeOutline  className="cursor-pointer"  />
+                  <FaRegEdit className="cursor-pointer"  onClick={() => navigate(`/edit/${campaign.id}`)}/>
+                  <RiDeleteBin6Line className='cursor-pointer' onClick={() => deleteCampaign(campaign.id)} />
                 </td>
               </tr>
             ))}

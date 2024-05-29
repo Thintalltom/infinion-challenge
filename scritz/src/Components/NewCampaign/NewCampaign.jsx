@@ -7,24 +7,15 @@ import axios from "axios";
 
 const NewCampaign = () => {
   const [open, setOpen] = useState(false);
-  const { data, postData } = useDataContext();
+  const {
+    campaignDescription, setCampaignDescription,startDate, setStartDate, endDate, setEnddate, dailyDigest, setdailyDigest,
+    linkedKeywords, setLinkedKeywords, inputValue, setInputValues, digestCampaign, setdigestCampaign, data, postData, isLoading, setIsLoading, selectedOption, setSelectedOption, campaignName, setCampaignName,} = useDataContext();
   const handleToggle = () => {
     setdigestCampaign(!digestCampaign);
     console.log(dailyDigest);
   };
 
-const [isLoading, setIsLoading] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
-  const [campaignName, setCampaignName] = useState("");
-  const [campaignDescription, setCampaignDescription] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEnddate] = useState("");
-  const [dailyDigest, setdailyDigest] = useState("");
-  const [linkedKeywords, setLinkedKeywords] = useState([]);
-  const [inputValue, setInputValues] = useState("");
-  const [digestCampaign, setdigestCampaign] = useState(false);
-  const [campaignStatus, setCampaignStatus] = useState("");
-  const [info, setInfo] = useState([]);
+
 
   const handlePostData = async (e) => {
     e.preventDefault();
