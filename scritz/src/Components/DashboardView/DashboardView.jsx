@@ -20,11 +20,14 @@ const DashboardView = () => {
         </div>
         <div className="flex items-center justify-center">
           <div className="flex mt-[40px] gap-[30px] flex-col">
-            <button className="bg-[#247B7B] gap-[10px] text-white border-[1px] p-[10px] flex items-center text-xs rounded">
+           <Link to='/new'>
+           <button className="bg-[#247B7B] gap-[10px] text-white border-[1px] p-[10px] flex items-center text-xs rounded">
               {" "}
               <FaPlus /> New Campaign
             </button>
-          <Link to='/overview'>
+           </Link>
+            
+          <Link to='/'>
           <button className="text-xs  items-center flex hover:text-[#247B7B]  p-[10px] hover:rounded hover:bg-[#FFFFFF] gap-[10px]  hover:shadow-sm">
               {" "}
               <IoSpeedometerOutline /> Overview

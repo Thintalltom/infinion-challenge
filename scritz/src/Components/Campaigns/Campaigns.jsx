@@ -7,12 +7,12 @@ import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-
+import DeleteModal from "./DeleteModal";
 
 const Campaigns = () => {
   const [data, setData] = useState([]);
-  const [isEditing, setIsEditing] = useState(null)
- 
+  const [showModal, setShowModal] = useState(false)
+  const [modalMessage, setModalMessage] = useState('')
   const navigate = useNavigate();
   //function to get data
   const getData = async () => {
@@ -30,10 +30,12 @@ const Campaigns = () => {
     getData();
   }, []); 
 
-  const deleteCampaign = async (campaignId) => {
+  const deleteCampaign = async (campaignId, campaignName) => {
     try {
       const response = await axios.delete(`https://infinion-test-int-test.azurewebsites.net/api/Campaign/${campaignId}`);
       setData(data.filter((campaign) => campaign.id !== campaignId));
+      setModalMessage(`${campaignName} has been deleted`)
+      setShowModal(true)
       console.log('deleted')      
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -119,14 +121,16 @@ const Campaigns = () => {
                
                   <IoEyeOutline  className="cursor-pointer"  />
                   <FaRegEdit className="cursor-pointer"  onClick={() => navigate(`/edit/${campaign.id}`)}/>
-                  <RiDeleteBin6Line className='cursor-pointer' onClick={() => deleteCampaign(campaign.id)} />
+                  <RiDeleteBin6Line className='cursor-pointer' onClick={() => deleteCampaign(campaign.id, campaign.campaignName)} />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
+          {showModal && (
+            <DeleteModal showModal={showModal} modalMessage={modalMessage} setShowModal={setShowModal} />
+          )}
     </div>
   );
 };

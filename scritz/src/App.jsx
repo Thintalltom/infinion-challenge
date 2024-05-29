@@ -17,7 +17,7 @@ function App() {
      <Navbar />
      <Routes>
       <Route path='/campaign' element={<Campaigns />} />
-      <Route path='/overview' element={<OverviewBoard />} />
+      <Route path='/' element={<OverviewBoard />} />
       <Route path='/new' element={<NewCampaign />} />
       <Route path='/edit/:id' element={<EditCampaign />} />
       </Routes>
