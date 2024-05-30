@@ -1,8 +1,14 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Building a campaign registration web application for infinion graduate trainee challenge
 
-Currently, two official plugins are available:
+Using the following technology
+# Reactjs
+# JavaScript
+# External Backend API
+# TailwindCSS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Usecase
+
+The web application allows users to be able to Add campaign, View Campaign, Delete Campaign and Edit campaign Properly 
+
