@@ -238,7 +238,7 @@ const NewCampaign = () => {
 
         <div className="flex justify-between  w-[500px] mt-[50px]">
          <Link to='/'>
-         <button className="text-[10px] text-center border-[1px] border-[#247B7B] rounded w-[200px] p-[10px] ">
+         <button className="text-[10px] text-center text-[#247B7B] border-[1px] border-[#247B7B] rounded w-[200px] p-[10px] ">
             Cancel
           </button>
          </Link>

@@ -11,6 +11,7 @@ import DeleteModal from "./DeleteModal";
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIos } from "react-icons/md";
 
+
 const Campaigns = () => {
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -145,7 +146,7 @@ const Campaigns = () => {
                   {campaign.campaignName ? "Active" : "Not Active"}
                 </td>
                 <td className="p-[10px] text-[10px] font-light items-center gap-[20px] text-sm flex ">
-                  <IoEyeOutline className="cursor-pointer" />
+                  <IoEyeOutline  className="cursor-pointer"   />
                   <FaRegEdit
                     className="cursor-pointer hover:text-[#247B7B]"
                     onClick={() => navigate(`/edit/${campaign.id}`)}

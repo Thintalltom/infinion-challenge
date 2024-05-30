@@ -25,7 +25,7 @@ const DashboardView = () => {
     
   return (
     <div>
-      <div className="shadow-md bg-[#F0F4F4] w-[292px] h-[868px]">
+      <div className="shadow-md bg-[#F0F4F4] w-[292px] h-[960px]">
         <div className="flex gap-[10px] p-[20px] justify-center items-center ">
           <img src={icon} className="w-10 h-8" />
           <p className="text-[30px] bg-clip-text text-transparent bg-gradient-to-r from-[#247B7B] to-[#3B247B]">
@@ -36,7 +36,7 @@ const DashboardView = () => {
           <div className="flex mt-[40px] gap-[30px] flex-col">
             <Link to="/new">
               <button  onClick={() => handleButtonClick('new')}
-              className={`${buttonClass('new')} bg-[#247B7B] text-white border-[1px] p-[10px] flex items-center text-xs rounded gap-[10px]`}>
+              className= 'bg-[#247B7B] text-white border-[1px] p-[10px] flex items-center text-xs rounded gap-[10px]'>
                 {" "}
                 <FaPlus /> New Campaign
               </button>
