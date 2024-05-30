@@ -4,7 +4,6 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
-import CancelCampaign from "./CancelCampaign";
 import { Link } from "react-router-dom";
 
 const EditCampaign = () => {
