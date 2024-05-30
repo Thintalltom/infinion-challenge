@@ -244,7 +244,7 @@ const EditCampaign = () => {
               <input
                 required
                 placeholder="Press enter after typing...."
-                className="text-[10px] w-[500px] h-[40px]  p-[10px] mt-1"
+                className="text-[10px] w-[500px] h-[40px]  p-[10px] mt-[35px]"
                 value={inputValue}
                 name="linkedKeywords"
                 onChange={handleInputChange}
