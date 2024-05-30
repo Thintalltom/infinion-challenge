@@ -4,18 +4,38 @@ import { FaToggleOff } from "react-icons/fa6";
 import { IoToggle } from "react-icons/io5";
 import { useDataContext } from "../useContext/DataContext";
 import axios from "axios";
+import UpdateModal from "./UpdateModal";
+import { Link } from "react-router-dom";
 
 const NewCampaign = () => {
   const [open, setOpen] = useState(false);
   const {
-    campaignDescription, setCampaignDescription,startDate, setStartDate, endDate, setEnddate, dailyDigest, setdailyDigest,
-    linkedKeywords, setLinkedKeywords, inputValue, setInputValues, digestCampaign, setdigestCampaign, data, postData, isLoading, setIsLoading, selectedOption, setSelectedOption, campaignName, setCampaignName,} = useDataContext();
+    campaignDescription,
+    setCampaignDescription,
+    startDate,
+    setStartDate,
+    endDate,
+    setEnddate,
+    dailyDigest,
+    setdailyDigest,
+    linkedKeywords,
+    setLinkedKeywords,
+    inputValue,
+    setInputValues,
+    digestCampaign,
+    setdigestCampaign,
+    isLoading,
+    setIsLoading,
+    campaignName,
+    setCampaignName,
+  } = useDataContext();
   const handleToggle = () => {
     setdigestCampaign(!digestCampaign);
     console.log(dailyDigest);
   };
 
-
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const handlePostData = async (e) => {
     e.preventDefault();
@@ -39,16 +59,17 @@ const NewCampaign = () => {
             "Content-Type": "text/json",
             Accept: "text/json",
           },
-        },
+        }
       );
-      console.log(  response.data);
+      setModalMessage(`Campaign successfully created!`);
+      setShowModal(true);
     } catch (error) {
       console.error(
         "Error posting data:",
         error.response ? error.response.data : error.message
       );
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -169,16 +190,7 @@ const NewCampaign = () => {
           </label>
           <br />
           <div className="border-[1px] w-[500px] h-[100px]">
-            <input
-              required
-              placeholder="Press enter after typing...."
-              className="text-[10px] w-[500px] h-[40px]  p-[10px] mt-1"
-              value={inputValue}
-              name="linkedKeywords"
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-            />
-            <div className="flex flex-wrap gap-[10px] p-[10px]">
+          <div className="flex flex-wrap gap-[10px] p-[10px]">
               {linkedKeywords.map((keyword, index) => (
                 <div
                   key={index}
@@ -193,6 +205,17 @@ const NewCampaign = () => {
                 </div>
               ))}
             </div>
+            
+            <input
+              required
+              placeholder="Press enter after typing...."
+              className="text-[10px] w-[500px] h-[40px]  p-[10px] mt-1"
+              value={inputValue}
+              name="linkedKeywords"
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            />
+          
           </div>
         </div>
 
@@ -214,17 +237,28 @@ const NewCampaign = () => {
         </select>
 
         <div className="flex justify-between  w-[500px] mt-[50px]">
-          <button className="text-[10px] text-center border-[1px] border-[#247B7B] rounded w-[200px] p-[10px] ">
+         <Link to='/'>
+         <button className="text-[10px] text-center border-[1px] border-[#247B7B] rounded w-[200px] p-[10px] ">
             Cancel
           </button>
+         </Link>
+         
           <button
             onClick={handlePostData}
             className="text-[10px] text-center border-[1px] bg-[#247B7B] text-white rounded w-[200px] p-[10px] "
           >
-            {isLoading ?'Loading..'  :  'Create Campaign'}
+            {isLoading ? "Loading.." : "Create Campaign"}
           </button>
         </div>
       </form>
+
+      {showModal && (
+        <UpdateModal 
+        showModal={showModal}
+        modalMessage={modalMessage}
+        setShowModal={setShowModal}
+        />
+      )}
     </div>
   );
 };

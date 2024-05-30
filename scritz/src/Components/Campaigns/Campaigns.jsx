@@ -8,11 +8,13 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
+import { MdArrowForwardIos } from "react-icons/md";
+import { MdArrowBackIos } from "react-icons/md";
 
 const Campaigns = () => {
   const [data, setData] = useState([]);
-  const [showModal, setShowModal] = useState(false)
-  const [modalMessage, setModalMessage] = useState('')
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const navigate = useNavigate();
@@ -30,27 +32,29 @@ const Campaigns = () => {
 
   useEffect(() => {
     getData();
-  }, []); 
+  }, []);
 
   const deleteCampaign = async (campaignId, campaignName) => {
     try {
-      const response = await axios.delete(`https://infinion-test-int-test.azurewebsites.net/api/Campaign/${campaignId}`);
+      const response = await axios.delete(
+        `https://infinion-test-int-test.azurewebsites.net/api/Campaign/${campaignId}`
+      );
       setData(data.filter((campaign) => campaign.id !== campaignId));
-      setModalMessage(`${campaignName} has been deleted`)
-      setShowModal(true)
-      console.log('deleted')      
+      setModalMessage(`${campaignName} has been deleted`);
+      setShowModal(true);
+      console.log("deleted");
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }
- 
-
-  const countCampaigns = () => {
-    const activeCount = data.filter(campaign => campaign.campaignName).length; // destructure the array to get length of campaign active/non-active
-    const inactiveCount = data.filter(campaign => !campaign.campaignName).length;
-    return { activeCount, inactiveCount };
   };
 
+  const countCampaigns = () => {
+    const activeCount = data.filter((campaign) => campaign.campaignName).length; // destructure the array to get length of campaign active/non-active
+    const inactiveCount = data.filter(
+      (campaign) => !campaign.campaignName
+    ).length;
+    return { activeCount, inactiveCount };
+  };
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -69,7 +73,6 @@ const Campaigns = () => {
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  
 
   const { activeCount, inactiveCount } = countCampaigns();
   return (
@@ -115,9 +118,7 @@ const Campaigns = () => {
           <thead className="bg-gray-50 border-b-2 border-gray-200">
             <tr className="ml-[20px]">
               <th className="p-[10px] text-left text-[10px]">S/N</th>
-              <th className="p-[10px] text-left text-[10px] ">
-                Campaign Name
-              </th>
+              <th className="p-[10px] text-left text-[10px] ">Campaign Name</th>
               <th className="p-[10px] text-left text-[10px] ">Start Date</th>
               <th className="p-[10px] text-left text-[10px] ">Status</th>
               <th className="p-[10px] text-left text-[10px] ">Action</th>
@@ -127,56 +128,82 @@ const Campaigns = () => {
           <tbody>
             {data.map((campaign, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                <td className="p-[10px] text-[10px] font-medium">{index + 1}</td>
+                <td className="p-[10px] text-[10px] font-medium">
+                  {index + 1}
+                </td>
                 <td className="p-[10px] text-[10px] font-medium">
                   {campaign.campaignName}
                 </td>
                 <td className="p-[10px] text-[10px] font-medium">
                   {new Date(campaign.startDate).toLocaleDateString()}
                 </td>
-                <td className={`p-[10px] text-[10px] font-medium ${campaign.campaignName ? 'text-green-500' : 'text-red-500'}`}>
+                <td
+                  className={`p-[10px] text-[10px] font-medium ${
+                    campaign.campaignName ? "text-[#247B7B]" : "text-red-500"
+                  }`}
+                >
                   {campaign.campaignName ? "Active" : "Not Active"}
                 </td>
                 <td className="p-[10px] text-[10px] font-light items-center gap-[20px] text-sm flex ">
-               
-                  <IoEyeOutline  className="cursor-pointer"  />
-                  <FaRegEdit className="cursor-pointer"  onClick={() => navigate(`/edit/${campaign.id}`)}/>
-                  <RiDeleteBin6Line className='cursor-pointer' onClick={() => deleteCampaign(campaign.id, campaign.campaignName)} />
+                  <IoEyeOutline className="cursor-pointer" />
+                  <FaRegEdit
+                    className="cursor-pointer hover:text-[#247B7B]"
+                    onClick={() => navigate(`/edit/${campaign.id}`)}
+                  />
+                  <RiDeleteBin6Line
+                    className="cursor-pointer hover:text-red-500"
+                    onClick={() =>
+                      deleteCampaign(campaign.id, campaign.campaignName)
+                    }
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-          {showModal && (
-            <DeleteModal showModal={showModal} modalMessage={modalMessage} setShowModal={setShowModal} />
-          )}
+      {showModal && (
+        <DeleteModal
+          showModal={showModal}
+          modalMessage={modalMessage}
+          setShowModal={setShowModal}
+        />
+      )}
 
-
-<div className="flex justify-center items-center mt-4">
+      <div className="flex justify-between items-center mt-4">
         <button
-          className="px-4 py-2 mx-1 border rounded disabled:opacity-50"
+          className="p-[5px] mx-1 cursor-pointer rounded disabled:opacity-50"
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
         >
-          Previous
+          <MdArrowBackIos className="text-sm" />
         </button>
         {[...Array(totalPages)].map((_, index) => (
           <button
             key={index}
-            className={`px-4 py-2 mx-1 border rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : ''}`}
+            className={`px-4 py-2 mx-1 flex items-center w-[10px] ${
+              currentPage === index + 1
+                ? "bg-[#247B7B] text-[10px] flex items-center justify-center rounded-full text-white"
+                : ""
+            }`}
             onClick={() => handlePageClick(index + 1)}
           >
             {index + 1}
           </button>
         ))}
         <button
-          className="px-4 py-2 mx-1 border rounded disabled:opacity-50"
+          className="p-[5px] mx-1 cursor-pointer rounded disabled:opacity-50"
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
         >
-          Next
+          <MdArrowForwardIos />
         </button>
+
+        <div>
+          <p className="text-[10px]">
+            Showing {currentPage} of {totalPages} results
+          </p>
+        </div>
       </div>
     </div>
   );

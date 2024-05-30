@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { FaToggleOff } from "react-icons/fa6";
-import { IoToggle } from "react-icons/io5";
-import { Link } from "react-router-dom";
 import { useDataContext } from "../useContext/DataContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa6";
+import CancelCampaign from "./CancelCampaign";
+import { Link } from "react-router-dom";
 
 const EditCampaign = () => {
-  const {id} = useParams()
-
+  const { id } = useParams();
   const {
     startDate,
     setStartDate,
@@ -29,11 +28,10 @@ const EditCampaign = () => {
     campaignDescription,
     digestCampaign,
     setdigestCampaign,
-    setCampaignDescription
-    
+    setCampaignDescription,
   } = useDataContext();
-  
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
   const editPostData = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -46,7 +44,6 @@ const EditCampaign = () => {
       digestCampaign,
       linkedKeywords,
       dailyDigest,
-      
     };
     try {
       const response = await axios.put(
@@ -57,22 +54,22 @@ const EditCampaign = () => {
             "Content-Type": "text/json",
             Accept: "text/json",
           },
-        },
+        }
       );
-      navigate('/campaign')
+      navigate("/campaign");
     } catch (error) {
       console.error(
         "Error posting data:",
         error.response ? error.response.data : error.message
       );
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
   const handleDigest = (event) => {
-    setdigestCampaign(event.target.value === 'true');
-    console.log(digestCampaign)
+    setdigestCampaign(event.target.value === "true");
+    console.log(digestCampaign);
   };
 
   useEffect(() => {
@@ -103,20 +100,54 @@ const EditCampaign = () => {
     setLinkedKeywords(updatedKeywords);
   };
 
+  const [modal, setModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const deleteCamp = () => {
+    setModal(true);
+  };
+  const deleteCampaign = async () => {
+    try {
+      const response = await axios.delete(
+        `https://infinion-test-int-test.azurewebsites.net/api/Campaign/${id}`
+      );
+      setDeleteModal(true);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <div>
-      <Link to="/campaign">
-        <p className="mt-[20px] p-[20px] text-[15px]">Back</p>
-      </Link>
+      <div>
+        <Link
+          to="/campaign"
+          className=" flex items-center p-[20px] gap-[10px]  text-[10px] mt-[20px] "
+        >
+          <FaArrowLeft />
+          <p className=" text-[10px]"> Back</p>
+        </Link>
+      </div>
 
-      <div className="flex justify-around">
+      <div className="flex justify-between p-[20px]">
         <p className="text-[15px] font-medium text-[#247B7B]">
           Campaign Information
         </p>
+        <p className="text-[10px] bg-gray-300 p-[10px] rounded">
+          Campaign Status |{" "}
+          <span
+            className={`p-[10px] text-[10px] font-medium ${
+              campaignName ? "text-[#247B7B]" : "text-red-500"
+            }`}
+          >
+            {" "}
+            {campaignName ? "Active" : "Not Active"}
+          </span>
+        </p>
       </div>
 
-      <div className="p-[30px] mt-[10px]">
-        <form className="mt-[20px]">
+      <div className="p-[30px] mt-[-30px]">
+        <form>
           <div>
             <div className="hidden">
               Campaign Status: {campaignName ? "Active" : "Not Active"}
@@ -138,20 +169,20 @@ const EditCampaign = () => {
           </div>
 
           <div className="mt-[10px]">
-          <label className="text-[10px] flex items-center">
-            Campaign Description
-            <span className="text-red-500 ml-1">*</span>
-          </label>
-          <br />
-          <textarea
-            required
-            placeholder="Please add a description to your campaign"
-            className="text-[10px] w-[500px] h-[100px] border-[1px] p-[10px] mt-1"
-            name="campaignDescription"
-            value={campaignDescription}
-            onChange={(e) => setCampaignDescription(e.target.value)}
-          />
-        </div>
+            <label className="text-[10px] flex items-center">
+              Campaign Description
+              <span className="text-red-500 ml-1">*</span>
+            </label>
+            <br />
+            <textarea
+              required
+              placeholder="Please add a description to your campaign"
+              className="text-[10px] w-[500px] h-[50px] border-[1px] p-[10px] mt-1"
+              name="campaignDescription"
+              value={campaignDescription}
+              onChange={(e) => setCampaignDescription(e.target.value)}
+            />
+          </div>
           <div className="flex gap-[20px] mt-[10px]">
             <div>
               <label className="text-[10px] flex items-center">
@@ -195,15 +226,6 @@ const EditCampaign = () => {
             </label>
             <br />
             <div className="border-[1px] w-[500px] h-[100px]">
-              <input
-                required
-                placeholder="Press enter after typing...."
-                className="text-[10px] w-[500px] h-[40px]  p-[10px] mt-1"
-                value={inputValue}
-                name="linkedKeywords"
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-              />
               <div className="flex flex-wrap gap-[10px] p-[10px]">
                 {linkedKeywords.map((keyword, index) => (
                   <div
@@ -219,11 +241,21 @@ const EditCampaign = () => {
                   </div>
                 ))}
               </div>
+
+              <input
+                required
+                placeholder="Press enter after typing...."
+                className="text-[10px] w-[500px] h-[40px]  p-[10px] mt-1"
+                value={inputValue}
+                name="linkedKeywords"
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+              />
             </div>
           </div>
 
-          <p className="text-[10px] mt-[20px]">
-            Want to recieve daily figest about the campaign?
+          <p className="text-[10px] mt-[40px]">
+            Want to recieve daily digest about the campaign?
           </p>
           <select
             value={digestCampaign}
@@ -254,7 +286,10 @@ const EditCampaign = () => {
           </select>
 
           <div className="flex justify-between  w-[500px] mt-[50px]">
-            <button className="text-[10px] text-center border-[1px] bg-[#990000] text-white rounded w-[200px] p-[10px] ">
+            <button
+              onClick={deleteCamp}
+              className="text-[10px] text-center border-[1px] bg-[#990000] text-white rounded w-[200px] p-[10px] "
+            >
               Stop Campaign
             </button>
             <button
@@ -265,6 +300,53 @@ const EditCampaign = () => {
             </button>
           </div>
         </form>
+        {modal && (
+          <div className="fixed inset-0 bg-opacity-30 backdrop-blur-sm">
+            <div className="flex  h-[100vh] justify-center items-center flex-col">
+              <div className="bg-gray-50 shadow-md text-center w-[350px] flex justify-center text-[10px] items-center gap-[20px] flex-col h-[250px] rounded">
+                <p className="font-medium">Stop Campaign</p>
+                <p>Are you sure you want to stop {campaignName}?</p>
+                <p>This action cannot be undone</p>
+                <div className="flex justify-between gap-[30px]">
+                  <button
+                    onClick={() => {
+                      setModal(false);
+                    }}
+                    className="border-[1px] w-[100px] border-zinc-950  p-[10px] rounded"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="text-white bg-red-500 p-[10px] rounded"
+                    onClick={deleteCampaign}
+                  >
+                    Delete Campaign
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {deleteModal && (
+          <div className="fixed inset-0 bg-opacity-30 backdrop-blur-sm">
+            <div className="flex  h-[100vh] justify-center items-center flex-col">
+              <div className="bg-gray-50 shadow-md text-center w-[350px] flex justify-center text-[10px] items-center gap-[20px] flex-col h-[250px] rounded">
+                {" "}
+                <p className="text-center font-medium text-[10px]">
+                  Campaign Deleted
+                </p>
+                <p>{campaignName}</p>
+                <button
+                  onClick={() => navigate("/campaign")}
+                  className="mt-4 bg-[#247B7B] text-[10px] w-[150px] text-white p-2 rounded"
+                >
+                  Go back to campaign List
+                </button>{" "}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
