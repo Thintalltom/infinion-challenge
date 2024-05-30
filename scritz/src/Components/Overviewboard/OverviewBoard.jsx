@@ -12,7 +12,7 @@ const OverviewBoard = () => {
         <p className="font-bold text-[#247B7B]">Overview</p>
 
         <div className="flex gap-[10px]">
-          <div className="border-[1px] w-[240px] flex gap-[10px] items-center p-[10px] text-[10px]">
+          <div className="border-[1px] w-[250px] flex gap-[10px] items-center p-[10px] text-[10px]">
             <FaRegCalendarAlt />
             <p>Date Range</p>
             <p>Nov 1, 2022 - Nov 7, 2022</p>

@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 const DashboardView = () => {
 
-  const [activeButton, setActiveButton] = useState(null);
+  const [activeButton, setActiveButton] = useState('overview');
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -19,7 +19,7 @@ const DashboardView = () => {
   const buttonClass = (buttonName) =>
     
     buttonName === activeButton
-      ? 'bg-[#FFFF] text-[#247B7B] shadow-sm rounded'
+      ? 'bg-[#FFFF] text-[#247B7B] shadow-sm rounded w-[120px]'
       : 'hover:text-[#247B7B] hover:bg-[#FFFFFF]';
 
     
@@ -28,11 +28,11 @@ const DashboardView = () => {
       <div className="shadow-md bg-[#F0F4F4] w-[292px] h-[960px]">
         <div className="flex gap-[10px] p-[20px] justify-center items-center ">
           <img src={icon} className="w-10 h-8" />
-          <p className="text-[30px] bg-clip-text text-transparent bg-gradient-to-r from-[#247B7B] to-[#3B247B]">
+          <p className="text-[30px] font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#247B7B] to-[#3B247B]">
             Scrutz
           </p>
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center font-medium">
           <div className="flex mt-[40px] gap-[30px] flex-col">
             <Link to="/new">
               <button  onClick={() => handleButtonClick('new')}
@@ -44,14 +44,14 @@ const DashboardView = () => {
 
             <Link to="/">
               <button onClick={() => handleButtonClick('overview')}
-              className={`text-xs items-center flex p-[10px] gap-[10px] hover:rounded ${buttonClass('overview')}`}>
+              className={`text-xs items-center flex p-[10px] gap-[10px] w-[120px] hover:rounded ${buttonClass('overview')}`}>
                 {" "}
                 <IoSpeedometerOutline /> Overview
               </button>
             </Link>
             <Link to="/campaign">
               <button  onClick={() => handleButtonClick('campaign')}
-              className={`text-xs items-center flex p-[10px] gap-[10px] hover:rounded ${buttonClass('campaign')}`}>
+              className={`text-xs items-center flex p-[10px] gap-[10px] w-[120px] hover:rounded ${buttonClass('campaign')}`}>
                 {" "}
                 <MdOutlineCampaign /> Campaign
               </button>

@@ -79,7 +79,7 @@ const Campaigns = () => {
   return (
     <div className="border-[1px] p-[30px] mt-[10px]">
       <div>
-        <p>All campaigns</p>
+        <p className="text-[#247B7B] font-bold">All campaigns</p>
       </div>
 
       <div className="flex justify-around items-center ">
@@ -177,7 +177,7 @@ const Campaigns = () => {
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
         >
-          <MdArrowBackIos className="text-sm" />
+          <MdArrowBackIos className="text-sm hover:text-[#247B7B] font-medium" />
         </button>
         {[...Array(totalPages)].map((_, index) => (
           <button
@@ -197,7 +197,7 @@ const Campaigns = () => {
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
         >
-          <MdArrowForwardIos />
+          <MdArrowForwardIos className="hover:text-[#247B7B] font-medium" />
         </button>
 
         <div>

@@ -17,8 +17,8 @@ function App() {
      <div className='flex flex-col'>
      <Navbar />
      <Routes>
+     <Route exact path='/' element={<OverviewBoard />} />
       <Route path='/campaign' element={<Campaigns />} />
-      <Route path='/' element={<OverviewBoard />} />
       <Route path='/new' element={<NewCampaign />} />
       <Route path='/edit/:id' element={<EditCampaign />} />
       

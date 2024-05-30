@@ -263,6 +263,7 @@ const EditCampaign = () => {
             className="text-[10px] w-[400px] border-[1px] p-[10px] mt-[20px]"
             required
           >
+            <option>Select</option>
             <option value={false}>Yes</option>
             <option value={true}>No</option>
           </select>
