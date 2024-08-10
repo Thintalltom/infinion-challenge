@@ -77,8 +77,8 @@ const Campaigns = () => {
 
   const { activeCount, inactiveCount } = countCampaigns();
   return (
-    <div className="border-[1px] p-[30px] mt-[10px]">
-      <div>
+    <div className="border-[1px] p-[30px] mt-[100px]">
+      <div >
         <p className="text-[#247B7B] font-bold">All campaigns</p>
       </div>
 

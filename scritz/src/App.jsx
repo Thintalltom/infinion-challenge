@@ -12,9 +12,9 @@ function App() {
 
   return (
    
-    <div className='flex'>
+    <div>
      <DashboardView />
-     <div className='flex flex-col'>
+     <div className='flex flex-col ml-[20rem]'>
      <Navbar />
      <Routes>
      <Route exact path='/' element={<OverviewBoard />} />

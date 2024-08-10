@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="shadow-sm w-[60.5rem] p-[15px]">
+      <div className="shadow-sm bg-white w-[60.5rem] p-[15px] fixed ">
         <div className="flex justify-around">
           <div className="flex justify-between items-center w-[350px] shadow-sm border-[1px] rounded-sm bg-[#FFF] p-[5px] ">
             <input

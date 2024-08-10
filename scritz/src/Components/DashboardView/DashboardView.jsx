@@ -25,7 +25,7 @@ const DashboardView = () => {
     
   return (
     <div>
-      <div className="shadow-md bg-[#F0F4F4] w-[292px] h-[960px]">
+      <div className="shadow-md bg-[#F0F4F4] w-[292px] h-[800px] fixed">
         <div className="flex gap-[10px] p-[20px] justify-center items-center ">
           <img src={icon} className="w-10 h-8" />
           <p className="text-[30px] font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#247B7B] to-[#3B247B]">
@@ -33,7 +33,7 @@ const DashboardView = () => {
           </p>
         </div>
         <div className="flex items-center justify-center font-medium">
-          <div className="flex mt-[40px] gap-[30px] flex-col">
+          <div className="flex mt-[40px] gap-[10px] flex-col">
             <Link to="/new">
               <button  onClick={() => handleButtonClick('new')}
               className= 'bg-[#247B7B] text-white border-[1px] p-[10px] flex items-center text-xs rounded gap-[10px]'>
@@ -66,7 +66,7 @@ const DashboardView = () => {
             </button>
           </div>
         </div>
-        <div className="flex items-center justify-center mt-[100px]">
+        <div className="flex items-center justify-center mt-[20px]">
           <div className="flex justify-center gap-[10px] items-center flex-col rounded shadow-md bg-[#FFFFFF] w-[228px] h-[228px]">
             <CiCircleQuestion className=" w-[20px] h-[20px] font-medium text-[#247B7B]" />
             <p className="text-xs bg-clip-text font-medium text-transparent bg-gradient-to-r from-[#247B7B] to-[#3B247B]">

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const OverviewBoard = () => {
   return (
     <div>
-      <div className="mt-[20px] flex justify-around">
+      <div className="mt-[80px] p-[20px] flex justify-around">
         <p className="font-bold text-[#247B7B]">Overview</p>
 
         <div className="flex gap-[10px]">
@@ -26,16 +26,16 @@ const OverviewBoard = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center mt-[10rem] flex-col">
+      <div className="flex justify-center p-[20px] items-center mt-[10rem] flex-col">
         <img src={search} />
-        <p className="text-center text-[10px] font-bold">
+        <p className="text-center text-[10px] p-[30px] font-bold">
           No activty yet. Create a new campaign to get started.
         </p>
-        <Link to='/new'>
-        <button className="bg-[#247B7B] mt-[50px] w-[150px] gap-[10px] text-white border-[1px] p-[10px] flex items-center justify-center text-xs rounded">
-          {" "}
-          <FaPlus /> New Campaign
-        </button>
+        <Link to="/new">
+          <button className="bg-[#247B7B] mt-[50px] w-[150px] gap-[10px] text-white border-[1px] p-[10px] flex items-center justify-center text-xs rounded">
+            {" "}
+            <FaPlus /> New Campaign
+          </button>
         </Link>
       </div>
     </div>
